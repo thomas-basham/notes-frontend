@@ -15,12 +15,6 @@ function App() {
     )}`;
   };
 
-  const loading = () => {
-    if (auth.isLoading) {
-      return <div>Loading...</div>;
-    }
-  };
-
   const error = () => {
     if (auth.error) {
       return <div>Encountering error... {auth.error.message}</div>;
@@ -30,22 +24,43 @@ function App() {
   const badge = () => {
     if (auth.isAuthenticated) {
       return (
-        <div>
-          <pre> Hello: {auth.user?.profile.email} </pre>
-          <pre> ID Token: {auth.user?.id_token} </pre>
-          <pre> Access Token: {auth.user?.access_token} </pre>
-          <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-
+        <div className="flex justify-between align-baseline">
           <button onClick={() => auth.removeUser()}>Sign out</button>
+
+          <pre> Hello: {auth.user?.profile.email} </pre>
         </div>
       );
     }
   };
 
+  console.log(auth.user);
+
   return (
-    <div>
-      <button onClick={() => auth.signinRedirect()}>Sign in</button>
-    </div>
+    <>
+      <header className="mb-5 text-left h-48">
+        {!auth.isLoading ? (
+          <>
+            <h1 className="mb-5">Codex March Cohort 2025 Notes App</h1>
+
+            {badge()}
+            {!auth.isAuthenticated && (
+              <button onClick={() => auth.signinRedirect()}>Sign in</button>
+            )}
+            {/* {error()} */}
+          </>
+        ) : (
+          <p className="text-center h-48">Loading...</p>
+        )}
+      </header>
+      <main>
+        <section>
+          <h2 className="h2">Our notes</h2>
+
+          <div className="border h-60"></div>
+        </section>
+      </main>
+      <footer></footer>
+    </>
   );
 }
 
