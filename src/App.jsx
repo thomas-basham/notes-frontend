@@ -46,7 +46,7 @@ function App() {
       <main>
         <section>
           <h2 className="h2 mb-3">Our notes</h2>
-          <Notes setNotes={setNotes} notes={notes} />
+          <Notes setNotes={setNotes} notes={notes} auth={auth} />
         </section>
       </main>
       <footer></footer>
