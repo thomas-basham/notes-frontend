@@ -7,7 +7,7 @@ import Notes from "./components/Notes";
 function App() {
   const [notes, setNotes] = useState([]);
   const auth = useAuth();
-
+  const username = auth.user?.profile["cognito:username"];
   const Error = () => {
     if (auth.error) {
       return <div>Encountering error... {auth.error.message}</div>;
@@ -18,7 +18,7 @@ function App() {
     if (auth.isAuthenticated) {
       return (
         <div className="flex justify-between align-baseline">
-          <pre> Hello, {auth.user?.profile["cognito:username"]} </pre>
+          <pre> Hello, {username} </pre>
 
           <button onClick={() => auth.removeUser()}>Sign out</button>
         </div>
@@ -45,7 +45,9 @@ function App() {
       </header>
       <main>
         <section>
-          <h2 className="h2 mb-3">Our notes</h2>
+          <h2 className="h2 mb-3 text-left">
+            {username ? username + "'s notes" : "Login to view your notes"}
+          </h2>
           <Notes setNotes={setNotes} notes={notes} auth={auth} />
         </section>
       </main>

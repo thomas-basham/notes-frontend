@@ -103,6 +103,7 @@ export default function Notes({ setNotes, notes }) {
           <p>Loading...</p>
         ))}
       {notes &&
+        userId &&
         notes.map((note) => {
           return (
             <div key={note.id} className="mx-7">
